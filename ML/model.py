@@ -31,11 +31,11 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 def prediction(team1, team2):
     probabilities = clf.predict_proba([[team1, team2]])
     prob = probabilities[0][0]
-    return f"CROATIA: {prob * 100:.2f}%", f"FRANCE: {100 - (prob * 100)}%"
+    return f"{team1.upper()}: {prob * 100:.2f}%", f"{team2.upper()}: {100 - (prob * 100)}%"
 
 @app.route('/')
-def run():
-    one, two = prediction(le.transform(['CROATIA'])[0], le.transform(['FRANCE'])[0])
+def run(): #test
+    one, two = prediction(le.transform([data['team1']])[0], le.transform([data['team2']])[0])
     return f"{one, two}"
 
 @app.route('/bet', methods=['POST'])

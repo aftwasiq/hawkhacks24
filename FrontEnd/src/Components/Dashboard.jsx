@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import "./Dashboard.css";
+import "./dashboard.css";
 import { UserIcon, Logo } from "./svg";
 
 const Dashboard = ({ data }) => {
@@ -17,10 +17,10 @@ const Dashboard = ({ data }) => {
       <div id="dashboredNavbar">
         <Logo />
         <div id="navbarLinks">
-          <a href="#">Sports</a>
-          <a href="#">Stocks</a>
-          <a href="#">Politics</a>
-          <a href="#">Enterainment</a>
+          <a href="#" className="nav-link">Sports</a>
+          <a href="#" className="nav-link">Stocks</a>
+          <a href="#" className="nav-link">Politics</a>
+          <a href="#" className="nav-link">Enterainment</a>
         </div>
         <div id="navbarUserIcon">
           <UserIcon />

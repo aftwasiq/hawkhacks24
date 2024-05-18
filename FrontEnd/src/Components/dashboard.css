@@ -28,6 +28,32 @@
     align-items: center;
     color: #fff;
 }
+
+.nav-link {
+    position: relative;
+    margin: 0 10px;
+    color: black;
+    text-decoration: none;
+  }
+  
+  .nav-link::after {
+    content: "";
+    width: 0;
+    height: 3px;
+    background: #be3409;
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    transition: width 0.5s ease;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  
+
+
 #navbarLinks a {
     color: #fff;
     text-decoration: none;
@@ -84,6 +110,10 @@
     justify-content: space-between;
     padding: 0px 0px 0px 20px;
 }
+
+
+
+
 .radio-button {
     cursor: pointer;
     border: 1px solid #ccc;
@@ -93,6 +123,9 @@
     margin-bottom: 12.5px;
     background-color: #be3409;
     border: none;
+    border-radius: 10px;
+	position: relative;
+	overflow: hidden;
 }
 .radio-button.selected {
     border: 2px solid #913b20;
@@ -103,7 +136,16 @@
 }
 .radio-button:hover {
     background-color: #913b20;
+	height: auto;
+	display: block;
+	transition: transform 0.5s;
 }
+
+
+
+
+
+
 #dashboredBetRight {
     display: flex;
     justify-content: space-evenly;

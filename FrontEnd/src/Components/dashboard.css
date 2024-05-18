@@ -36,9 +36,9 @@
     margin: 0 10px;
     color: black;
     text-decoration: none;
-  }
-  
-  .nav-link::after {
+}
+
+.nav-link::after {
     content: "";
     width: 0;
     height: 3px;
@@ -47,14 +47,11 @@
     left: 0;
     bottom: -6px;
     transition: width 0.5s ease;
-  }
-  
-  .nav-link:hover::after {
+}
+
+.nav-link:hover::after {
     width: 100%;
-  }
-
-  
-
+}
 
 #navbarLinks a {
     color: #fff;
@@ -71,14 +68,12 @@
     border-radius: 50%;
 }
 #navbarUnderline {
-  width: 100%;
-  height: 5px;
-  background-color: #be3409;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  margin-top: 10px; /* Adjust if needed to place the line right under the navbar */
+    width: 100%;
+    height: 5px;
+    background-color: #be3409;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    margin-top: 10px; /* Adjust if needed to place the line right under the navbar */
 }
-
-
 
 #dashboredGraph {
     height: 330px;
@@ -86,7 +81,7 @@
     width: 100%;
     margin-bottom: 50px;
     display: flex;
-    
+    justify-content: space-evenly;
 }
 #dashboredCompareDiv {
     margin-top: 10px;
@@ -99,7 +94,6 @@
     justify-content: space-evenly;
     flex-direction: column;
     border-radius: 10px;
-
 }
 #dashboredCompareTitleDiv {
     width: 670px;
@@ -109,7 +103,7 @@
 #dashboredComparePerDiv {
     width: 670px;
     height: 255px;
-    background-color: rgba(54, 2, 2, 0.37);
+    background-color: rgba(66, 63, 61, 0.18);
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -121,15 +115,13 @@
     margin-top: 10px;
     width: 95%;
     height: 80px;
-    background-color: rgba(54, 2, 2, 0.37);
-    border-radius: 10px;
+    background-color: rgba(22, 22, 22, 0.37);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0px 0px 0px 20px;
 }
-
-
 
 .radio-button {
     cursor: pointer;
@@ -138,35 +130,31 @@
     width: 140px;
     height: 55px;
     margin-bottom: 12.5px;
-    background-color: #be3409;
+    background-color: rgba(71, 71, 71, 0.21);
     border: none;
     position: relative;
     overflow: hidden;
     transition: background-color 0.5s;
-  }
-  
-  .radio-button.selected {
-    background-image: linear-gradient(to right, #d1beb8, #d1beb8);
-    transition: width 1s ease;
-
-  }
-  
-  .radio-button:focus {
-    outline: none;
-  }
-  
-  .radio-button:hover {
-    background-image: linear-gradient(to right, #d1beb8, #be3409);
-    transition: width 1s ease;
-  }
-  
-
-.chanWinningTxt{
-    font-weight: 10;
-
+    margin: 0 7px;
 }
 
+.radio-button.selected {
+    background-color: #b53737;
+    transition: width 2s ease;
+}
 
+.radio-button:focus {
+    outline: none;
+}
+
+.radio-button:hover {
+    background-image: linear-gradient(to right, #f01758, #be3409);
+    transition: width 2s ease;
+}
+
+.chanWinningTxt {
+    font-weight: 10;
+}
 
 #dashboredBetRight {
     display: flex;
@@ -175,10 +163,16 @@
     width: 350px;
 }
 #betBtn {
-    background-color: #3300ff;
+    background-color: #f74e43;
 }
 
-
-.leftthings{
+.leftthings {
     margin: 20px 10px 0px 50px;
+}
+#topBetters {
+    width: 490px;
+    height: 355px;
+    background-color: rgba(97, 93, 93, 0.1);
+    margin-top: 10px;
+    border-radius: 20px;
 }

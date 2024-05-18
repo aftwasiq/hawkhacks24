@@ -6,7 +6,7 @@
     padding: 0px !important;
 }
 #dashboredBackGround {
-    background-color: #080909;
+    background-color: #070707;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -14,24 +14,12 @@
     flex-direction: column;
 }
 #dashboredNavbar {
-    width: 100%;
+    width: 97%;
     height: 70px;
     display: flex;
     justify-content: space-between;
-    margin: 20px 10px 0px -50px;
-    align-items: center;
-}
-#navbarLinks {
-    width: 750px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #fff;
-}
-#navbarLinks a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 22px;
+    margin: 20px 10px 0px 10px;
+    align-items: flex-end;
 }
 #navbarUserIcon {
     width: 70px;
@@ -39,39 +27,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #1c1e1e;
+    background-color: #160808;
     border-radius: 50%;
 }
 #dashboredGraph {
     height: 330px;
     margin-top: 10px;
     width: 92%;
+    background-color: rgba(0, 209, 255, 0.08);
     padding: 35px;
-}
-#dashboredCompareDiv {
-    margin-top: 10px;
-    width: 720px;
-    height: 355px;
-    background-color: rgba(59, 59, 59, 0.1);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-}
-#dashboredCompareTitleDiv {
-    width: 670px;
-    display: flex;
-    justify-content: space-evenly;
-}
-#dashboredComparePerDiv {
-    width: 670px;
-    height: 255px;
-    background-color: rgba(66, 63, 61, 0.18);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    border-radius: 10px;
 }
 #dashboredBet {
     margin-top: 10px;

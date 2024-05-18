@@ -4,7 +4,7 @@ const router = express.Router();
 
 const dummyData = {
   team1: {
-    name: "chicago",
+    name: "FRANCE",
     totalBet: 2933833,
     yourBet: 9283,
     data: [10, 20, 5, 15, 7],
@@ -15,7 +15,7 @@ const dummyData = {
     chanceOfWinning: 70,
   },
   team2: {
-    name: "new york",
+    name: "GERMANY",
     totalBet: 2933833,
     yourBet: 9283,
     data: [20, 10, 5, 15, 7],

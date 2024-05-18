@@ -47,6 +47,7 @@ def prediction(team1, team2, goals_team1, goals_team2):
         adjustment = (prob_team1 - initial_prob) * 0.1
         new_prob_team1 = initial_prob + adjustment
         new_prob_team2 = 100 - new_prob_team1
+        
     else:
         adjustment = (prob_team2 - initial_prob) * 0.1
         new_prob_team2 = initial_prob + adjustment

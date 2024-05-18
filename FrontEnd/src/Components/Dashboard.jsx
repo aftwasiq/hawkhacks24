@@ -6,6 +6,8 @@ import { UserIcon, Logo } from "./svg";
 const Dashboard = ({ data }) => {
   const { user, logout } = useContext(AuthContext);
   const [selectedOption, setSelectedOption] = useState("option1");
+  const [customBet, setCustomBet] = useState(0);
+  console.log(customBet);
 
   // Handler function to update the selected radio button
   const handleOptionChange = (option) => {
@@ -58,29 +60,66 @@ const Dashboard = ({ data }) => {
             <div id="betterTitle">
               <h1>Top Betters</h1>
               <ul id="bettersList">
-                <li><span class="bettorName">John</span> <span class="betAmount">$1000</span></li>
-                <li><span class="bettorName">Alice</span> <span class="betAmount">$1500</span></li>
-                <li><span class="bettorName">Bob</span> <span class="betAmount">$800</span></li>
+                <li>
+                  <span className="bettorName">
+                    {data.team1.leaderBoard[0].name}
+                  </span>
+                  <span className="betAmount">
+                    {data.team1.leaderBoard[0].bet}
+                  </span>
+                </li>
+                <li>
+                  <span className="bettorName">
+                    {data.team1.leaderBoard[1].name}
+                  </span>
+                  <span className="betAmount">
+                    {data.team1.leaderBoard[1].bet}
+                  </span>
+                </li>
+                <li>
+                  <span className="bettorName">
+                    {data.team1.leaderBoard[2].name}
+                  </span>
+                  <span className="betAmount">
+                    {data.team1.leaderBoard[2].bet}
+                  </span>
+                </li>
+                <li>
+                  <span className="bettorName">
+                    {data.team1.leaderBoard[3].name}
+                  </span>
+                  <span className="betAmount">
+                    {data.team1.leaderBoard[3].bet}
+                  </span>
+                </li>
+                <li>
+                  <span className="bettorName">
+                    {data.team1.leaderBoard[4].name}
+                  </span>
+                  <span className="betAmount">
+                    {data.team1.leaderBoard[4].bet}
+                  </span>
+                </li>
               </ul>
             </div>
           </div>
         </div>
         <div id="dashboredBet">
           <button
-            className={`radio-button ${selectedOption === 500 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(500)}
+            className={`radio-button ${selectedOption === 100 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(100)}
           >
             $100
           </button>
           <button
-            className={`radio-button ${selectedOption === 400 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(400)}
+            className={`radio-button ${selectedOption === 1000 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(1000)}
           >
             $1000
           </button>
           <button
-            className={`radio-button ${selectedOption === 7000 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(7000)}
+            className={`radio-button ${selectedOption === 10000 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(10000)}
           >
             $10,000
           </button>
@@ -91,14 +130,14 @@ const Dashboard = ({ data }) => {
             $100,000
           </button>
           <button
-            className={`radio-button ${selectedOption === 6600 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(6600)}
+            className={`radio-button ${selectedOption === 100000 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(100000)}
           >
             $1,000,000
           </button>
           <button
-            className={`radio-button ${selectedOption === 200 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(200)}
+            className={`radio-button ${selectedOption === 10000000 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(10000000)}
           >
             $10,000,000
           </button>
@@ -108,7 +147,12 @@ const Dashboard = ({ data }) => {
               className={`radio-button ${selectedOption === "custom" ? "selected" : ""}`}
               onClick={() => handleOptionChange("custom")}
             >
-              CUSTOM
+              <input
+                placeholder="Custom"
+                onChange={(e) => {
+                  setCustomBet(e.target.value);
+                }}
+              />
             </button>
             <button className="radio-button" id="betBtn">
               Bet

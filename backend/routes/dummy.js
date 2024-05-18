@@ -11,6 +11,12 @@ const dummyData = {
     leaderBoard: [
       { name: "John", bet: 10000 },
       { name: "Doe", bet: 5000 },
+      { name: "John", bet: 10000 },
+      { name: "Doe", bet: 5000 },
+      { name: "John", bet: 10000 },
+      { name: "Doe", bet: 5000 },
+      { name: "John", bet: 10000 },
+      { name: "Doe", bet: 5000 },
     ],
     chanceOfWinning: 70,
   },
@@ -20,6 +26,10 @@ const dummyData = {
     yourBet: 9283,
     data: [20, 10, 5, 15, 7],
     leaderBoard: [
+      { name: "Joshn", bet: 10600 },
+      { name: "Does", bet: 5600 },
+      { name: "Joshn", bet: 10600 },
+      { name: "Does", bet: 5600 },
       { name: "Joshn", bet: 10600 },
       { name: "Does", bet: 5600 },
     ],

@@ -8,7 +8,7 @@
 }
 
 h1 {
-    font-weight: 100; 
+    font-weight: 100;
     letter-spacing: 6px;
 }
 
@@ -16,7 +16,7 @@ h2 {
     font-weight: 350;
     font-size: 300;
     color: #be3409;
-    font-size: 4.5em; 
+    font-size: 4.5em;
     margin-bottom: -20px;
 }
 
@@ -25,12 +25,28 @@ h4 {
 }
 
 #dashboredBackGround {
-    background-color: #101010;
+    background-image: linear-gradient(
+        hsl(180deg 6% 3%) 0%,
+        hsl(0deg 48% 6%) 100%
+    );
+    background-size: 200% 200%;
+    animation: gradientAnimation 7s ease infinite;
     height: 100vh;
     width: 100vw;
     display: flex;
     align-items: left;
     flex-direction: column;
+}
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 #dashboredNavbar {
     width: 100%;
@@ -93,6 +109,11 @@ h4 {
     margin-top: 10px; /* Adjust if needed to place the line right under the navbar */
 }
 
+#dashboredComparePerDiv > h3 {
+    font-size: 40px;
+    font-weight: 100;
+}
+
 #dashboredGraph {
     height: 330px;
     margin-top: 10px;
@@ -100,6 +121,7 @@ h4 {
     margin-bottom: 50px;
     display: flex;
     justify-content: space-evenly;
+    margin-top: 20px;
 }
 #dashboredCompareDiv {
     margin-top: 10px;
@@ -111,13 +133,13 @@ h4 {
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: 20px;
+    margin-left: -40px;
 }
 #dashboredCompareTitleDiv {
     width: 670px;
     display: flex;
     justify-content: space-evenly;
-
 }
 #dashboredComparePerDiv {
     width: 670px;
@@ -131,7 +153,7 @@ h4 {
 }
 
 #dashboredBet {
-    margin-top: 10px;
+    margin-top: 50px;
     width: 95%;
     height: 80px;
     background-color: rgba(22, 22, 22, 0.37);
@@ -183,6 +205,8 @@ h4 {
 }
 #betBtn {
     background-color: #f74e43;
+    font-size: 24px;
+    text-align: center;
 }
 
 .leftthings {
@@ -192,19 +216,16 @@ h4 {
     width: 490px;
     height: 335px;
     background-color: rgba(97, 93, 93, 0.1);
-    margin-top: 4px;
-    border-radius: 4px;
+    margin-top: 10px;
+    border-radius: 20px;
     padding-top: 20px;
 }
-
-
-
 #bettersList {
     list-style: none;
     padding: 0;
-  }
-  
-  #bettersList li {
+}
+
+#bettersList li {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -213,16 +234,47 @@ h4 {
     margin-top: 10px;
     margin-left: 25px;
     margin-right: 25px;
-  }
-  
-  .bettorName {
+    height: 40px;
+}
+
+.bettorName {
     margin-right: 10px; /* Adjust spacing between name and amount */
     padding-left: 25px;
-  }
-  
-  .betAmount {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.betAmount {
     text-align: right;
     padding-right: 20px;
+    font-weight: 200;
+}
 
-  }
-  
+.radio-button input {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 140px;
+    height: 55px;
+    margin-bottom: 12.5px;
+    background-color: rgba(71, 71, 71, 0.21);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.5s;
+    margin: 0 7px;
+    margin: -25px !important;
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+}
+
+.radio-button input:focus {
+    outline: none;
+}
+
+.radio-button input::placeholder {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 200;
+}

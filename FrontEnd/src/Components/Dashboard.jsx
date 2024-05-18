@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "./dashboard.css";
 import { UserIcon, Logo } from "./svg";
@@ -34,7 +34,7 @@ const Dashboard = ({ data }) => {
           </div>
           <div id="dashboredComparePerDiv">
             <div className="chanWinningTxt">
-              <h1>{data.team1.chanceOfWinning}%</h1>
+              <h1 >{data.team1.chanceOfWinning}%</h1>
               <h4>Chance Of Winning</h4>
             </div>
             <h2>VS</h2>

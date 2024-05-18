@@ -4,14 +4,16 @@
 }
 #root {
     padding: 0px !important;
+    font-weight: 100;
 }
 #dashboredBackGround {
     background-color: #080909;
     height: 100vh;
     width: 100vw;
     display: flex;
-    align-items: center;
+    align-items: left;
     flex-direction: column;
+    margin: 20px;
 }
 #dashboredNavbar {
     width: 100%;
@@ -72,14 +74,13 @@
     height: 330px;
     margin-top: 10px;
     width: 92%;
-    padding: 35px;
 }
 #dashboredCompareDiv {
     margin-top: 10px;
     width: 720px;
     height: 355px;
     background-color: rgba(59, 59, 59, 0.1);
-    border-radius: 20px;
+    
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -98,6 +99,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    font-weight: lighter;
 }
 #dashboredBet {
     margin-top: 10px;
@@ -113,7 +115,6 @@
 
 
 
-
 .radio-button {
     cursor: pointer;
     border: 1px solid #ccc;
@@ -123,26 +124,31 @@
     margin-bottom: 12.5px;
     background-color: #be3409;
     border: none;
-    border-radius: 10px;
-	position: relative;
-	overflow: hidden;
-}
-.radio-button.selected {
-    border: 2px solid #913b20;
-    color: #fff;
-}
-.radio-button:focus {
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.5s;
+  }
+  
+  .radio-button.selected {
+    background-image: linear-gradient(to right, #d1beb8, #d1beb8);
+    transition: width 1s ease;
+
+  }
+  
+  .radio-button:focus {
     outline: none;
+  }
+  
+  .radio-button:hover {
+    background-image: linear-gradient(to right, #d1beb8, #be3409);
+    transition: width 1s ease;
+  }
+  
+
+.chanWinningTxt{
+    font-weight: 10;
+
 }
-.radio-button:hover {
-    background-color: #913b20;
-	height: auto;
-	display: block;
-	transition: transform 0.5s;
-}
-
-
-
 
 
 

@@ -44,12 +44,12 @@ const Dashboard = ({ data }) => {
             </div>
             <div id="dashboredComparePerDiv">
               <div className="chanWinningTxt">
-                <h1>{data.team1.chanceOfWinning}%</h1>
+                <h2>{data.team1.chanceOfWinning}%</h2>
                 <h4>Chance Of Winning</h4>
               </div>
-              <h2>VS</h2>
+              <h3>VS</h3>
               <div className="chanWinningTxt">
-                <h1>{data.team2.chanceOfWinning}%</h1>
+                <h2>{data.team2.chanceOfWinning}%</h2>
                 <h4>Chance Of Winning</h4>
               </div>
             </div>
@@ -57,6 +57,11 @@ const Dashboard = ({ data }) => {
           <div id="topBetters">
             <div id="betterTitle">
               <h1>Top Betters</h1>
+              <ul id="bettersList">
+                <li><span class="bettorName">John</span> <span class="betAmount">$1000</span></li>
+                <li><span class="bettorName">Alice</span> <span class="betAmount">$1500</span></li>
+                <li><span class="bettorName">Bob</span> <span class="betAmount">$800</span></li>
+              </ul>
             </div>
           </div>
         </div>
@@ -65,37 +70,37 @@ const Dashboard = ({ data }) => {
             className={`radio-button ${selectedOption === 500 ? "selected" : ""}`}
             onClick={() => handleOptionChange(500)}
           >
-            $500
+            $100
           </button>
           <button
             className={`radio-button ${selectedOption === 400 ? "selected" : ""}`}
             onClick={() => handleOptionChange(400)}
           >
-            $400
+            $1000
           </button>
           <button
             className={`radio-button ${selectedOption === 7000 ? "selected" : ""}`}
             onClick={() => handleOptionChange(7000)}
           >
-            $7000
+            $10,000
           </button>
           <button
             className={`radio-button ${selectedOption === 9000 ? "selected" : ""}`}
             onClick={() => handleOptionChange(9000)}
           >
-            $9000
+            $100,000
           </button>
           <button
             className={`radio-button ${selectedOption === 6600 ? "selected" : ""}`}
             onClick={() => handleOptionChange(6600)}
           >
-            $6600
+            $1,000,000
           </button>
           <button
             className={`radio-button ${selectedOption === 200 ? "selected" : ""}`}
             onClick={() => handleOptionChange(200)}
           >
-            $200
+            $10,000,000
           </button>
 
           <div id="dashboredBetRight">
@@ -103,7 +108,7 @@ const Dashboard = ({ data }) => {
               className={`radio-button ${selectedOption === "custom" ? "selected" : ""}`}
               onClick={() => handleOptionChange("custom")}
             >
-              custom
+              CUSTOM
             </button>
             <button className="radio-button" id="betBtn">
               Bet

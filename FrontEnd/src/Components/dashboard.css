@@ -6,6 +6,24 @@
     padding: 0px !important;
     font-weight: 100;
 }
+
+h1 {
+    font-weight: 100; 
+    letter-spacing: 6px;
+}
+
+h2 {
+    font-weight: 350;
+    font-size: 300;
+    color: #be3409;
+    font-size: 4.5em; 
+    margin-bottom: -20px;
+}
+
+h4 {
+    color: #be3409;
+}
+
 #dashboredBackGround {
     background-color: #101010;
     height: 100vh;
@@ -99,6 +117,7 @@
     width: 670px;
     display: flex;
     justify-content: space-evenly;
+
 }
 #dashboredComparePerDiv {
     width: 670px;
@@ -171,8 +190,39 @@
 }
 #topBetters {
     width: 490px;
-    height: 355px;
+    height: 335px;
     background-color: rgba(97, 93, 93, 0.1);
-    margin-top: 10px;
-    border-radius: 20px;
+    margin-top: 4px;
+    border-radius: 4px;
+    padding-top: 20px;
 }
+
+
+
+#bettersList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  #bettersList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(97, 93, 93, 0.1);
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+  
+  .bettorName {
+    margin-right: 10px; /* Adjust spacing between name and amount */
+    padding-left: 25px;
+  }
+  
+  .betAmount {
+    text-align: right;
+    padding-right: 20px;
+
+  }
+  

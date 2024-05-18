@@ -1,0 +1,80 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+#root {
+    padding: 0px !important;
+}
+#dashboredBackGround {
+    background-color: #010a10;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#dashboredNavbar {
+    width: 97%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 10px 0px 10px;
+    align-items: flex-end;
+}
+#navbarUserIcon {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #031b24;
+    border-radius: 50%;
+}
+#dashboredGraph {
+    height: 330px;
+    margin-top: 10px;
+    width: 92%;
+    background-color: rgba(0, 209, 255, 0.08);
+    padding: 35px;
+    border-radius: 10px;
+}
+#dashboredBet {
+    margin-top: 10px;
+    width: 95%;
+    height: 80px;
+    background-color: #031b24;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 0px 0px 20px;
+}
+.radio-button {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 140px;
+    height: 55px;
+    margin-bottom: 12.5px;
+    background-color: #222f37;
+    border: none;
+}
+.radio-button.selected {
+    border: 2px solid #000afc;
+    color: #fff;
+}
+.radio-button:focus {
+    outline: none;
+}
+.radio-button:hover {
+    background-color: #000afc;
+}
+#dashboredBetRight {
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 100px;
+    width: 350px;
+}
+#betBtn {
+    background-color: #3300ff;
+}

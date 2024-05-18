@@ -80,6 +80,13 @@ const Dashboard = ({ data }) => {
     ],
   };
 
+  const [selectedOption, setSelectedOption] = useState("option1");
+
+  // Handler function to update the selected radio button
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
+  };
+
   return (
     <div id="dashboredBackGround">
       <div id="dashboredNavbar">
@@ -91,7 +98,56 @@ const Dashboard = ({ data }) => {
       <div id="dashboredGraph">
         <Line options={options} data={data2} style={{ maxHeight: 330 }} />
       </div>
-      <div id="dashboredBet"> </div>
+      <div id="dashboredBet">
+        <button
+          className={`radio-button ${selectedOption === 500 ? "selected" : ""}`}
+          onClick={() => handleOptionChange(500)}
+        >
+          $500
+        </button>
+        <button
+          className={`radio-button ${selectedOption === 400 ? "selected" : ""}`}
+          onClick={() => handleOptionChange(400)}
+        >
+          $400
+        </button>
+        <button
+          className={`radio-button ${selectedOption === 7000 ? "selected" : ""}`}
+          onClick={() => handleOptionChange(7000)}
+        >
+          $7000
+        </button>
+        <button
+          className={`radio-button ${selectedOption === 9000 ? "selected" : ""}`}
+          onClick={() => handleOptionChange(9000)}
+        >
+          $9000
+        </button>
+        <button
+          className={`radio-button ${selectedOption === 6600 ? "selected" : ""}`}
+          onClick={() => handleOptionChange(6600)}
+        >
+          $6600
+        </button>
+        <button
+          className={`radio-button ${selectedOption === 200 ? "selected" : ""}`}
+          onClick={() => handleOptionChange(200)}
+        >
+          $200
+        </button>
+
+        <div id="dashboredBetRight">
+          <button
+            className={`radio-button ${selectedOption === "custom" ? "selected" : ""}`}
+            onClick={() => handleOptionChange("custom")}
+          >
+            custom
+          </button>
+          <button className="radio-button" id="betBtn">
+            Bet
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

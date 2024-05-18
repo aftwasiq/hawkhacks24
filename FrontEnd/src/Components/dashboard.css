@@ -7,13 +7,12 @@
     font-weight: 100;
 }
 #dashboredBackGround {
-    background-color: #080909;
+    background-color: #101010;
     height: 100vh;
     width: 100vw;
     display: flex;
     align-items: left;
     flex-direction: column;
-    margin: 20px;
 }
 #dashboredNavbar {
     width: 100%;
@@ -23,6 +22,7 @@
     margin: 20px 10px 0px -50px;
     align-items: center;
 }
+
 #navbarLinks {
     width: 750px;
     display: flex;
@@ -70,21 +70,36 @@
     background-color: #1c1e1e;
     border-radius: 50%;
 }
+#navbarUnderline {
+  width: 100%;
+  height: 5px;
+  background-color: #be3409;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  margin-top: 10px; /* Adjust if needed to place the line right under the navbar */
+}
+
+
+
 #dashboredGraph {
     height: 330px;
     margin-top: 10px;
-    width: 92%;
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    
 }
 #dashboredCompareDiv {
     margin-top: 10px;
     width: 720px;
     height: 355px;
-    background-color: rgba(59, 59, 59, 0.1);
-    
+    background-color: rgba(97, 93, 93, 0.1);
+
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+    border-radius: 10px;
+
 }
 #dashboredCompareTitleDiv {
     width: 670px;
@@ -94,18 +109,19 @@
 #dashboredComparePerDiv {
     width: 670px;
     height: 255px;
-    background-color: rgba(66, 63, 61, 0.18);
+    background-color: rgba(54, 2, 2, 0.37);
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     font-weight: lighter;
 }
+
 #dashboredBet {
     margin-top: 10px;
     width: 95%;
     height: 80px;
-    background-color: #160808;
+    background-color: rgba(54, 2, 2, 0.37);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -160,4 +176,9 @@
 }
 #betBtn {
     background-color: #3300ff;
+}
+
+
+.leftthings{
+    margin: 20px 10px 0px 50px;
 }

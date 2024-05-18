@@ -1,11 +1,13 @@
 import pandas as pd
-from flask import Flask
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 data = pd.read_csv('matches.csv')
 
@@ -26,19 +28,23 @@ y_pred = clf.predict(X_test)
 
 print("Accuracy:", accuracy_score(y_test, y_pred))
 
-
 def prediction(team1, team2):
     probabilities = clf.predict_proba([[team1, team2]])
-
     prob = probabilities[0][0]
     return f"CROATIA: {prob * 100:.2f}%", f"FRANCE: {100 - (prob * 100)}%"
-
 
 @app.route('/')
 def run():
     one, two = prediction(le.transform(['CROATIA'])[0], le.transform(['FRANCE'])[0])
     return f"{one, two}"
 
+@app.route('/bet', methods=['POST'])
+def bet():
+    data = request.get_json()
+    team1 = le.transform([data['team1']])[0]
+    team2 = le.transform([data['team2']])[0]
+    one, two = prediction(team1, team2)
+    return jsonify({"team1": one, "team2": two})
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5001)

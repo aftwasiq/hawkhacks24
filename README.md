@@ -1,2 +1,2 @@
-# hawkhacks24
-repo for hawkhacks24 hackathon may17 - 19
+# PredicTurf - HawkHacks 2024 Submission
+

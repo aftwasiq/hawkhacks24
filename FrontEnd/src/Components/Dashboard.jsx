@@ -188,7 +188,10 @@ const Dashboard = ({ data }) => {
                     : data.team1.chanceOfWinning}
                 </h2>
                 <h4>Chance Of Winning</h4>
-                <button onClick={() => handleTeamSelection("ARGENTINA")}>
+                <button
+                  onClick={() => handleTeamSelection("ARGENTINA")}
+                  className="betTemSelBtn"
+                >
                   Bet on Argentina
                 </button>
               </div>
@@ -200,7 +203,10 @@ const Dashboard = ({ data }) => {
                     : data.team2.chanceOfWinning}
                 </h2>
                 <h4>Chance Of Winning</h4>
-                <button onClick={() => handleTeamSelection("SAUDI ARABIA")}>
+                <button
+                  onClick={() => handleTeamSelection("SAUDI ARABIA")}
+                  className="betTemSelBtn"
+                >
                   Bet on Saudi Arabia
                 </button>
               </div>
@@ -322,7 +328,15 @@ const Dashboard = ({ data }) => {
           </div>
         </div>
       </div>
-      <div>{account ? <button onClick={signOut}>Sign Out</button> : ""}</div>
+      <div>
+        {account ? (
+          <button onClick={signOut} id="signOutBtn">
+            Sign Out
+          </button>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 };

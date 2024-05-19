@@ -162,7 +162,7 @@ h4 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 0px 0px 20px;
+    padding: 0px 10px 0px 20px;
 }
 
 .radio-button {
@@ -297,4 +297,19 @@ h4 {
 }
 #dashboredBet > button:nth-child(5) {
     padding-right: 80px;
+}
+#signOutBtn {
+    width: 90%;
+}
+.betTemSelBtn {
+    background-color: rgba(70, 70, 70, 0.6);
+}
+#dashboredBet > button:nth-child(7) > input {
+    width: 100%;
+    height: 100%;
+    background: none;
+    padding-right: 10px;
+}
+#dashboredBet > button:nth-child(7) {
+    margin-right: -80px;
 }

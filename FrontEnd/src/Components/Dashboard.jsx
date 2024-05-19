@@ -62,23 +62,7 @@ const Dashboard = ({ data }) => {
     initNear();
   }, []);
 
-  const signIn = () => {
-    if (wallet) {
-      console.log("Attempting to sign in with NEAR wallet");
-      wallet.requestSignIn({
-        contractId: "",
-        methodNames: [],
-        successUrl: `${window.location.origin}/dashboard`,
-        failureUrl: `${window.location.origin}/dashboard`,
-      }).then(() => {
-        console.log("Sign-in request successful");
-      }).catch((error) => {
-        console.error("Error during sign-in request:", error);
-      });
-    } else {
-      console.error("Wallet is not initialized");
-    }
-  };
+  
 
   const signOut = () => {
     if (wallet) {
@@ -212,11 +196,7 @@ const Dashboard = ({ data }) => {
         </div>
       </div>
       <div>
-        {account ? (
-          <button onClick={signOut}>Sign Out</button>
-        ) : (
-          <button onClick={signIn}>Sign In with NEAR</button>
-        )}
+          <button onClick={signOut}>Sign Out</button>      
       </div>
     </div>
   );

@@ -18,6 +18,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.0",
+    "near-api-js": "^4.0.1",
     "nodemon": "^3.1.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",

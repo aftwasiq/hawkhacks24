@@ -37,21 +37,9 @@ const Login = ({ data, setData }) => {
         <h2>Login/SignUp</h2>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={onChange}
-            required
-          />
+          <input type="text" name="username" value={username} onChange={onChange} required />
           <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={onChange}
-            required
-          />
+          <input type="password" name="password" value={password} onChange={onChange} required />
         </div>
         <button type="submit">Login</button>
       </form>

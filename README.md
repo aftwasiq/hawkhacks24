@@ -22,3 +22,5 @@ Clone or download the repository. Install the required packages `npm install`. S
 - Sign up
 - Login & Enjoy!
 
+# FAQ
+

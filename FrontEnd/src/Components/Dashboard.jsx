@@ -20,6 +20,9 @@ const Dashboard = ({ data }) => {
   const { user, logout } = useContext(AuthContext);
   const [selectedOption, setSelectedOption] = useState("option1");
   const [customBet, setCustomBet] = useState(0);
+  const [team1Goals, setTeam1Goals] = useState(0);
+  const [team2Goals, setTeam2Goals] = useState(0);
+
   console.log(customBet);
 
   const [wallet, setWallet] = useState(null);
@@ -29,10 +32,7 @@ const Dashboard = ({ data }) => {
   useEffect(() => {
     const initNear = async () => {
       try {
-        // Create a key store
         const myKeyStore = new keyStores.BrowserLocalStorageKeyStore();
-
-        // Connect to NEAR with the given configuration
         const nearConnection = await connect({
           networkId: nearConfig.networkId,
           keyStore: myKeyStore,
@@ -40,22 +40,14 @@ const Dashboard = ({ data }) => {
           walletUrl: nearConfig.walletUrl,
           helperUrl: nearConfig.helperUrl,
         });
-
-        // Initialize wallet connection
-        const walletConnection = new WalletConnection(
-          nearConnection,
-          nearConfig.appKeyPrefix,
-        );
+        const walletConnection = new WalletConnection(nearConnection, nearConfig.appKeyPrefix);
         setWallet(walletConnection);
 
-        // Check if the user is already signed in
         if (walletConnection.isSignedIn()) {
           const account = walletConnection.account();
           setAccount(account);
-          // Store account details in local storage
           localStorage.setItem("nearAccountId", account.accountId);
         } else {
-          // If not signed in, try to retrieve account from local storage
           const storedAccountId = localStorage.getItem("nearAccountId");
           if (storedAccountId) {
             const account = walletConnection.account();
@@ -73,19 +65,16 @@ const Dashboard = ({ data }) => {
   const signIn = () => {
     if (wallet) {
       console.log("Attempting to sign in with NEAR wallet");
-      wallet
-        .requestSignIn({
-          contractId: "", // No contract ID for login-only purposes
-          methodNames: [], // Optional: specify methods the access key should allow
-          successUrl: `${window.location.origin}/dashboard`, // Success URL
-          failureUrl: `${window.location.origin}/dashboard`, // Failure URL
-        })
-        .then(() => {
-          console.log("Sign-in request successful");
-        })
-        .catch((error) => {
-          console.error("Error during sign-in request:", error);
-        });
+      wallet.requestSignIn({
+        contractId: "",
+        methodNames: [],
+        successUrl: `${window.location.origin}/dashboard`,
+        failureUrl: `${window.location.origin}/dashboard`,
+      }).then(() => {
+        console.log("Sign-in request successful");
+      }).catch((error) => {
+        console.error("Error during sign-in request:", error);
+      });
     } else {
       console.error("Wallet is not initialized");
     }
@@ -96,7 +85,7 @@ const Dashboard = ({ data }) => {
       console.log("Attempting to sign out");
       wallet.signOut();
       setAccount(null);
-      localStorage.removeItem("nearAccountId"); // Remove account details from local storage
+      localStorage.removeItem("nearAccountId");
     } else {
       console.error("Wallet is not initialized");
     }
@@ -110,9 +99,11 @@ const Dashboard = ({ data }) => {
 
     try {
       const response = await axios.post("http://localhost:5001/bet", {
-        team1: "MOROCCO",
-        team2: "FRANCE",
-        accountId: account.accountId, // Include the account ID in the bet request
+        team1: "ARGENTINA",
+        team2: "SAUDI ARABIA",
+        goals_team1: team1Goals,
+        goals_team2: team2Goals,
+        accountId: account.accountId,
       });
       setBetResult(response.data);
     } catch (error) {
@@ -120,7 +111,6 @@ const Dashboard = ({ data }) => {
     }
   };
 
-  // Handler function to update the selected radio button
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
@@ -130,18 +120,10 @@ const Dashboard = ({ data }) => {
       <div id="dashboredNavbar">
         <Logo />
         <div id="navbarLinks">
-          <a href="#" className="nav-link">
-            Sports
-          </a>
-          <a href="#" className="nav-link">
-            Stocks
-          </a>
-          <a href="#" className="nav-link">
-            Politics
-          </a>
-          <a href="#" className="nav-link">
-            Enterainment
-          </a>
+          <a href="#" className="nav-link">Sports</a>
+          <a href="#" className="nav-link">Stocks</a>
+          <a href="#" className="nav-link">Politics</a>
+          <a href="#" className="nav-link">Entertainment</a>
         </div>
         <div id="navbarUserIcon">
           <UserIcon />
@@ -157,12 +139,12 @@ const Dashboard = ({ data }) => {
             </div>
             <div id="dashboredComparePerDiv">
               <div className="chanWinningTxt">
-                <h2>{data.team1.chanceOfWinning}%</h2>
+                <h2>{betResult ? betResult["ARGENTINA"] : data.team1.chanceOfWinning}</h2>
                 <h4>Chance Of Winning</h4>
               </div>
               <h3>VS</h3>
               <div className="chanWinningTxt">
-                <h2>{data.team2.chanceOfWinning}%</h2>
+                <h2>{betResult ? betResult["SAUDI ARABIA"] : data.team2.chanceOfWinning}</h2>
                 <h4>Chance Of Winning</h4>
               </div>
             </div>
@@ -172,100 +154,58 @@ const Dashboard = ({ data }) => {
               <h1>Top Betters</h1>
               <ul id="bettersList">
                 <li>
-                  <span className="bettorName">
-                    {data.team1.leaderBoard[0].name}
-                  </span>
-                  <span className="betAmount">
-                    {data.team1.leaderBoard[0].bet}
-                  </span>
+                  <span className="bettorName">{data.team1.leaderBoard[0].name}</span>
+                  <span className="betAmount">{data.team1.leaderBoard[0].bet}</span>
                 </li>
                 <li>
-                  <span className="bettorName">
-                    {data.team1.leaderBoard[1].name}
-                  </span>
-                  <span className="betAmount">
-                    {data.team1.leaderBoard[1].bet}
-                  </span>
+                  <span className="bettorName">{data.team1.leaderBoard[1].name}</span>
+                  <span className="betAmount">{data.team1.leaderBoard[1].bet}</span>
                 </li>
                 <li>
-                  <span className="bettorName">
-                    {data.team1.leaderBoard[2].name}
-                  </span>
-                  <span className="betAmount">
-                    {data.team1.leaderBoard[2].bet}
-                  </span>
+                  <span className="bettorName">{data.team1.leaderBoard[2].name}</span>
+                  <span className="betAmount">{data.team1.leaderBoard[2].bet}</span>
                 </li>
                 <li>
-                  <span className="bettorName">
-                    {data.team1.leaderBoard[3].name}
-                  </span>
-                  <span className="betAmount">
-                    {data.team1.leaderBoard[3].bet}
-                  </span>
+                  <span className="bettorName">{data.team1.leaderBoard[3].name}</span>
+                  <span className="betAmount">{data.team1.leaderBoard[3].bet}</span>
                 </li>
                 <li>
-                  <span className="bettorName">
-                    {data.team1.leaderBoard[4].name}
-                  </span>
-                  <span className="betAmount">
-                    {data.team1.leaderBoard[4].bet}
-                  </span>
+                  <span className="bettorName">{data.team1.leaderBoard[4].name}</span>
+                  <span className="betAmount">{data.team1.leaderBoard[4].bet}</span>
                 </li>
               </ul>
             </div>
           </div>
         </div>
         <div id="dashboredBet">
-          <button
-            className={`radio-button ${selectedOption === 100 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(100)}
-          >
+          <button className={`radio-button ${selectedOption === 100 ? "selected" : ""}`} onClick={() => handleOptionChange(100)}>
             $100
           </button>
-          <button
-            className={`radio-button ${selectedOption === 1000 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(1000)}
-          >
+          <button className={`radio-button ${selectedOption === 1000 ? "selected" : ""}`} onClick={() => handleOptionChange(1000)}>
             $1000
           </button>
-          <button
-            className={`radio-button ${selectedOption === 10000 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(10000)}
-          >
+          <button className={`radio-button ${selectedOption === 10000 ? "selected" : ""}`} onClick={() => handleOptionChange(10000)}>
             $10,000
           </button>
-          <button
-            className={`radio-button ${selectedOption === 9000 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(9000)}
-          >
+          <button className={`radio-button ${selectedOption === 9000 ? "selected" : ""}`} onClick={() => handleOptionChange(9000)}>
             $100,000
           </button>
-          <button
-            className={`radio-button ${selectedOption === 100000 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(100000)}
-          >
+          <button className={`radio-button ${selectedOption === 100000 ? "selected" : ""}`} onClick={() => handleOptionChange(100000)}>
             $1,000,000
           </button>
-          <button
-            className={`radio-button ${selectedOption === 10000000 ? "selected" : ""}`}
-            onClick={() => handleOptionChange(10000000)}
-          >
+          <button className={`radio-button ${selectedOption === 10000000 ? "selected" : ""}`} onClick={() => handleOptionChange(10000000)}>
             $10,000,000
           </button>
 
           <div id="dashboredBetRight">
-            <button
-              className={`radio-button ${selectedOption === "custom" ? "selected" : ""}`}
-              onClick={() => handleOptionChange("custom")}
-            >
-              <input
-                placeholder="Custom"
-                onChange={(e) => {
-                  setCustomBet(e.target.value);
-                }}
-              />
+            <button className={`radio-button ${selectedOption === "custom" ? "selected" : ""}`} onClick={() => handleOptionChange("custom")}>
+              <input placeholder="Custom" onChange={(e) => setCustomBet(e.target.value)} />
             </button>
-            <button className="radio-button" id="betBtn">
+            <div>
+              <input type="number" placeholder="Goals by team 1" value={team1Goals} onChange={(e) => setTeam1Goals(parseInt(e.target.value))} />
+              <input type="number" placeholder="Goals by team 2" value={team2Goals} onChange={(e) => setTeam2Goals(parseInt(e.target.value))} />
+            </div>
+            <button className="radio-button" id="betBtn" onClick={handleBet}>
               Bet
             </button>
           </div>
@@ -273,13 +213,9 @@ const Dashboard = ({ data }) => {
       </div>
       <div>
         {account ? (
-          <button onClick={signOut} className="logInOutBtn">
-            Sign Out
-          </button>
+          <button onClick={signOut}>Sign Out</button>
         ) : (
-          <button onClick={signIn} className="logInOutBtn">
-            Sign In with NEAR
-          </button>
+          <button onClick={signIn}>Sign In with NEAR</button>
         )}
       </div>
     </div>

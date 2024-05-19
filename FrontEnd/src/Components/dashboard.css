@@ -153,8 +153,9 @@ h4 {
 }
 
 #dashboredBet {
+    margin-left: 20px;
     margin-top: 50px;
-    width: 95%;
+    width: 93%;
     height: 80px;
     background-color: rgba(22, 22, 22, 0.37);
     border-radius: 20px;
@@ -277,4 +278,8 @@ h4 {
     color: #fff;
     font-size: 20px;
     font-weight: 200;
+}
+.logInOutBtn {
+    width: 90%;
+    height: 50px;
 }

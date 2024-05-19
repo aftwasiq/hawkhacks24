@@ -273,9 +273,13 @@ const Dashboard = ({ data }) => {
       </div>
       <div>
         {account ? (
-          <button onClick={signOut}>Sign Out</button>
+          <button onClick={signOut} className="logInOutBtn">
+            Sign Out
+          </button>
         ) : (
-          <button onClick={signIn}>Sign In with NEAR</button>
+          <button onClick={signIn} className="logInOutBtn">
+            Sign In with NEAR
+          </button>
         )}
       </div>
     </div>

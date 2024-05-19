@@ -1,13 +1,124 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../context/AuthProvider";
 import "./dashboard.css";
 import { UserIcon, Logo } from "./svg";
+import * as nearAPI from "near-api-js";
+import axios from "axios";
+
+const { connect, keyStores, WalletConnection } = nearAPI;
+
+const nearConfig = {
+  networkId: "testnet",
+  keyStore: new keyStores.BrowserLocalStorageKeyStore(),
+  nodeUrl: "https://rpc.testnet.near.org",
+  walletUrl: "https://testnet.mynearwallet.com/",
+  helperUrl: "https://helper.testnet.near.org",
+  appKeyPrefix: "my-app",
+};
 
 const Dashboard = ({ data }) => {
   const { user, logout } = useContext(AuthContext);
   const [selectedOption, setSelectedOption] = useState("option1");
   const [customBet, setCustomBet] = useState(0);
   console.log(customBet);
+
+  const [wallet, setWallet] = useState(null);
+  const [account, setAccount] = useState(null);
+  const [betResult, setBetResult] = useState(null);
+
+  useEffect(() => {
+    const initNear = async () => {
+      try {
+        // Create a key store
+        const myKeyStore = new keyStores.BrowserLocalStorageKeyStore();
+
+        // Connect to NEAR with the given configuration
+        const nearConnection = await connect({
+          networkId: nearConfig.networkId,
+          keyStore: myKeyStore,
+          nodeUrl: nearConfig.nodeUrl,
+          walletUrl: nearConfig.walletUrl,
+          helperUrl: nearConfig.helperUrl,
+        });
+
+        // Initialize wallet connection
+        const walletConnection = new WalletConnection(
+          nearConnection,
+          nearConfig.appKeyPrefix,
+        );
+        setWallet(walletConnection);
+
+        // Check if the user is already signed in
+        if (walletConnection.isSignedIn()) {
+          const account = walletConnection.account();
+          setAccount(account);
+          // Store account details in local storage
+          localStorage.setItem("nearAccountId", account.accountId);
+        } else {
+          // If not signed in, try to retrieve account from local storage
+          const storedAccountId = localStorage.getItem("nearAccountId");
+          if (storedAccountId) {
+            const account = walletConnection.account();
+            setAccount(account);
+          }
+        }
+      } catch (error) {
+        console.error("Error initializing NEAR:", error);
+      }
+    };
+
+    initNear();
+  }, []);
+
+  const signIn = () => {
+    if (wallet) {
+      console.log("Attempting to sign in with NEAR wallet");
+      wallet
+        .requestSignIn({
+          contractId: "", // No contract ID for login-only purposes
+          methodNames: [], // Optional: specify methods the access key should allow
+          successUrl: `${window.location.origin}/dashboard`, // Success URL
+          failureUrl: `${window.location.origin}/dashboard`, // Failure URL
+        })
+        .then(() => {
+          console.log("Sign-in request successful");
+        })
+        .catch((error) => {
+          console.error("Error during sign-in request:", error);
+        });
+    } else {
+      console.error("Wallet is not initialized");
+    }
+  };
+
+  const signOut = () => {
+    if (wallet) {
+      console.log("Attempting to sign out");
+      wallet.signOut();
+      setAccount(null);
+      localStorage.removeItem("nearAccountId"); // Remove account details from local storage
+    } else {
+      console.error("Wallet is not initialized");
+    }
+  };
+
+  const handleBet = async () => {
+    if (!account) {
+      alert("Please sign in with your NEAR wallet to make a bet.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5001/bet", {
+        team1: "MOROCCO",
+        team2: "FRANCE",
+        accountId: account.accountId, // Include the account ID in the bet request
+      });
+      setBetResult(response.data);
+    } catch (error) {
+      console.error("Error making bet:", error);
+    }
+  };
 
   // Handler function to update the selected radio button
   const handleOptionChange = (option) => {
@@ -159,6 +270,13 @@ const Dashboard = ({ data }) => {
             </button>
           </div>
         </div>
+      </div>
+      <div>
+        {account ? (
+          <button onClick={signOut}>Sign Out</button>
+        ) : (
+          <button onClick={signIn}>Sign In with NEAR</button>
+        )}
       </div>
     </div>
   );

@@ -25,6 +25,6 @@ Clone or download the repository. Install the required packages `npm install`. S
 
 # Deployable Demo 
 
-coming soon
+coming soon...
 
 # 

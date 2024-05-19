@@ -120,7 +120,7 @@ const Login = ({ data, setData }) => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Sign In</button>
         <button onClick={signIn}>Sign In with NEAR</button>
       </form>
     </div>

@@ -106,7 +106,7 @@ h4 {
     height: 5px;
     background-color: #be3409;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    margin-top: 10px; /* Adjust if needed to place the line right under the navbar */
+    margin-top: 10px; 
 }
 
 #dashboredComparePerDiv > h3 {
@@ -239,7 +239,7 @@ h4 {
 }
 
 .bettorName {
-    margin-right: 10px; /* Adjust spacing between name and amount */
+    margin-right: 10px; 
     padding-left: 25px;
     font-weight: 400;
     font-size: 20px;

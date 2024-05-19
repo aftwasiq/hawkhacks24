@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import "./LogInPage.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -22,11 +23,16 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input type="text" name="username" value={username} onChange={onChange} required />
-      <input type="password" name="password" value={password} onChange={onChange} required />
-      <button type="submit">Register</button>
-    </form>
+    <div className="login-container">
+      <form onSubmit={onSubmit} className="login-form">
+      <h2>Sign Up</h2>
+      <label htmlFor="email">Email:</label>
+        <input type="text" name="username" value={username} onChange={onChange} required />
+        <label htmlFor="password">Set Password:</label>
+        <input type="password" name="password" value={password} onChange={onChange} required />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
   );
 };
 

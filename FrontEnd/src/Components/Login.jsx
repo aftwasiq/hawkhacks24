@@ -101,7 +101,7 @@ const Login = ({ data, setData }) => {
   return (
     <div className="login-container">
       <form onSubmit={onSubmit} className="login-form">
-        <h2>Login/SignUp</h2>
+        <h2>Sign In</h2>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input

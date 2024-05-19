@@ -107,7 +107,7 @@ const Login = ({ data, setData }) => {
   return (
     <div className="login-container">
       <form onSubmit={onSubmit} className="login-form">
-        <h2>Sign In</h2>
+        <h2>PredicTurf</h2>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
@@ -129,7 +129,7 @@ const Login = ({ data, setData }) => {
         <button type="submit">Sign In</button>
         <button onClick={signIn}>Sign In with NEAR</button>
         <div id="registerLink">
-          <a href="/register">Dont Have An Account?</a>
+          <a href="/register">Don't have an account?</a>
         </div>
       </form>
     </div>

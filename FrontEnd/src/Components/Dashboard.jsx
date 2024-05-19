@@ -42,7 +42,10 @@ const Dashboard = ({ data }) => {
           walletUrl: nearConfig.walletUrl,
           helperUrl: nearConfig.helperUrl,
         });
-        const walletConnection = new WalletConnection(nearConnection, nearConfig.appKeyPrefix);
+        const walletConnection = new WalletConnection(
+          nearConnection,
+          nearConfig.appKeyPrefix,
+        );
         setWallet(walletConnection);
 
         if (walletConnection.isSignedIn()) {
@@ -66,16 +69,19 @@ const Dashboard = ({ data }) => {
 
   const signIn = () => {
     if (wallet) {
-      wallet.requestSignIn({
-        contractId: "",
-        methodNames: [],
-        successUrl: `${window.location.origin}/dashboard`,
-        failureUrl: `${window.location.origin}/dashboard`,
-      }).then(() => {
-        console.log("Sign-in request successful");
-      }).catch((error) => {
-        console.error("Error during sign-in request:", error);
-      });
+      wallet
+        .requestSignIn({
+          contractId: "",
+          methodNames: [],
+          successUrl: `${window.location.origin}/dashboard`,
+          failureUrl: `${window.location.origin}/dashboard`,
+        })
+        .then(() => {
+          console.log("Sign-in request successful");
+        })
+        .catch((error) => {
+          console.error("Error during sign-in request:", error);
+        });
     } else {
       console.error("Wallet is not initialized");
     }
@@ -109,6 +115,7 @@ const Dashboard = ({ data }) => {
   };
 
   const handlePay = async () => {
+    await fetchBetResults();
     if (!account) {
       alert("Please sign in with your NEAR wallet to make a bet.");
       return;
@@ -121,7 +128,9 @@ const Dashboard = ({ data }) => {
 
     try {
       if (betResult && betResult.winner === selectedTeam) {
-        const transactionAmount = utils.format.parseNearAmount((customBet || selectedOption).toString());
+        const transactionAmount = utils.format.parseNearAmount(
+          (customBet || selectedOption).toString(),
+        );
         await wallet.account().sendMoney(account.accountId, transactionAmount);
         alert(`Congratulations! You won ${transactionAmount / 1e24} NEAR.`);
       } else {
@@ -146,10 +155,18 @@ const Dashboard = ({ data }) => {
       <div id="dashboredNavbar">
         <Logo />
         <div id="navbarLinks">
-          <a href="#" className="nav-link">Sports</a>
-          <a href="#" className="nav-link">Stocks</a>
-          <a href="#" className="nav-link">Politics</a>
-          <a href="#" className="nav-link">Entertainment</a>
+          <a href="#" className="nav-link">
+            Sports
+          </a>
+          <a href="#" className="nav-link">
+            Stocks
+          </a>
+          <a href="#" className="nav-link">
+            Politics
+          </a>
+          <a href="#" className="nav-link">
+            Entertainment
+          </a>
         </div>
         <div id="navbarUserIcon">
           <UserIcon />
@@ -165,13 +182,27 @@ const Dashboard = ({ data }) => {
             </div>
             <div id="dashboredComparePerDiv">
               <div className="chanWinningTxt">
-                <h2>{betResult ? betResult["result"]["ARGENTINA"] : data.team1.chanceOfWinning}</h2>
+                <h2>
+                  {betResult
+                    ? betResult["result"]["ARGENTINA"]
+                    : data.team1.chanceOfWinning}
+                </h2>
                 <h4>Chance Of Winning</h4>
+                <button onClick={() => handleTeamSelection("ARGENTINA")}>
+                  Bet on Argentina
+                </button>
               </div>
               <h3>VS</h3>
               <div className="chanWinningTxt">
-                <h2>{betResult ? betResult["result"]["SAUDI ARABIA"] : data.team2.chanceOfWinning}</h2>
+                <h2>
+                  {betResult
+                    ? betResult["result"]["SAUDI ARABIA"]
+                    : data.team2.chanceOfWinning}
+                </h2>
                 <h4>Chance Of Winning</h4>
+                <button onClick={() => handleTeamSelection("SAUDI ARABIA")}>
+                  Bet on Saudi Arabia
+                </button>
               </div>
             </div>
           </div>
@@ -180,78 +211,118 @@ const Dashboard = ({ data }) => {
               <h1>Top Betters</h1>
               <ul id="bettersList">
                 <li>
-                  <span className="bettorName">{data.team1.leaderBoard[0].name}</span>
-                  <span className="betAmount">{data.team1.leaderBoard[0].bet}</span>
+                  <span className="bettorName">
+                    {data.team1.leaderBoard[0].name}
+                  </span>
+                  <span className="betAmount">
+                    {data.team1.leaderBoard[0].bet}
+                  </span>
                 </li>
                 <li>
-                  <span className="bettorName">{data.team1.leaderBoard[1].name}</span>
-                  <span className="betAmount">{data.team1.leaderBoard[1].bet}</span>
+                  <span className="bettorName">
+                    {data.team1.leaderBoard[1].name}
+                  </span>
+                  <span className="betAmount">
+                    {data.team1.leaderBoard[1].bet}
+                  </span>
                 </li>
                 <li>
-                  <span className="bettorName">{data.team1.leaderBoard[2].name}</span>
-                  <span className="betAmount">{data.team1.leaderBoard[2].bet}</span>
+                  <span className="bettorName">
+                    {data.team1.leaderBoard[2].name}
+                  </span>
+                  <span className="betAmount">
+                    {data.team1.leaderBoard[2].bet}
+                  </span>
                 </li>
                 <li>
-                  <span className="bettorName">{data.team1.leaderBoard[3].name}</span>
-                  <span className="betAmount">{data.team1.leaderBoard[3].bet}</span>
+                  <span className="bettorName">
+                    {data.team1.leaderBoard[3].name}
+                  </span>
+                  <span className="betAmount">
+                    {data.team1.leaderBoard[3].bet}
+                  </span>
                 </li>
                 <li>
-                  <span className="bettorName">{data.team1.leaderBoard[4].name}</span>
-                  <span className="betAmount">{data.team1.leaderBoard[4].bet}</span>
+                  <span className="bettorName">
+                    {data.team1.leaderBoard[4].name}
+                  </span>
+                  <span className="betAmount">
+                    {data.team1.leaderBoard[4].bet}
+                  </span>
                 </li>
               </ul>
             </div>
           </div>
         </div>
         <div id="dashboredBet">
-          <button className={`radio-button ${selectedOption === 100 ? "selected" : ""}`} onClick={() => handleOptionChange(100)}>
+          <button
+            className={`radio-button ${selectedOption === 100 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(100)}
+          >
             $100
           </button>
-          <button className={`radio-button ${selectedOption === 1000 ? "selected" : ""}`} onClick={() => handleOptionChange(1000)}>
+          <button
+            className={`radio-button ${selectedOption === 1000 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(1000)}
+          >
             $1000
           </button>
-          <button className={`radio-button ${selectedOption === 10000 ? "selected" : ""}`} onClick={() => handleOptionChange(10000)}>
+          <button
+            className={`radio-button ${selectedOption === 10000 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(10000)}
+          >
             $10,000
           </button>
-          <button className={`radio-button ${selectedOption === 9000 ? "selected" : ""}`} onClick={() => handleOptionChange(9000)}>
+          <button
+            className={`radio-button ${selectedOption === 9000 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(9000)}
+          >
             $100,000
           </button>
-          <button className={`radio-button ${selectedOption === 100000 ? "selected" : ""}`} onClick={() => handleOptionChange(100000)}>
+          <button
+            className={`radio-button ${selectedOption === 100000 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(100000)}
+          >
             $1,000,000
           </button>
-          <button className={`radio-button ${selectedOption === 10000000 ? "selected" : ""}`} onClick={() => handleOptionChange(10000000)}>
+          <button
+            className={`radio-button ${selectedOption === 10000000 ? "selected" : ""}`}
+            onClick={() => handleOptionChange(10000000)}
+          >
             $10,000,000
+          </button>
+          <button
+            className={`radio-button ${selectedOption === "custom" ? "selected" : ""}`}
+            onClick={() => handleOptionChange("custom")}
+          >
+            <input
+              placeholder="Custom"
+              onChange={(e) => setCustomBet(e.target.value)}
+            />
           </button>
 
           <div id="dashboredBetRight">
-            <button className={`radio-button ${selectedOption === "custom" ? "selected" : ""}`} onClick={() => handleOptionChange("custom")}>
-              <input placeholder="Custom" onChange={(e) => setCustomBet(e.target.value)} />
-            </button>
             <div>
-              <input type="number" placeholder="Goals by team 1" value={team1Goals} onChange={(e) => setTeam1Goals(parseInt(e.target.value))} />
-              <input type="number" placeholder="Goals by team 2" value={team2Goals} onChange={(e) => setTeam2Goals(parseInt(e.target.value))} />
+              <input
+                type="number"
+                placeholder="Goals by team 1"
+                value={team1Goals}
+                onChange={(e) => setTeam1Goals(parseInt(e.target.value))}
+              />
+              <input
+                type="number"
+                placeholder="Goals by team 2"
+                value={team2Goals}
+                onChange={(e) => setTeam2Goals(parseInt(e.target.value))}
+              />
             </div>
-            <div>
-              <button onClick={() => handleTeamSelection("ARGENTINA")}>Bet on Argentina</button>
-              <button onClick={() => handleTeamSelection("SAUDI ARABIA")}>Bet on Saudi Arabia</button>
-            </div>
-            {confirmationMessage && <p>{confirmationMessage}</p>}
-            <button className="radio-button" id="betBtn" onClick={fetchBetResults}>
-              Bet
-            </button>
             <button className="radio-button" id="payBtn" onClick={handlePay}>
               Pay
             </button>
           </div>
         </div>
       </div>
-      <div>
-        {account ? (
-          <button onClick={signOut}>Sign Out</button>
-        ) : (
-          <button onClick={signIn}>Sign In with NEAR</button>
-        )}
-      </div>
+      <div>{account ? <button onClick={signOut}>Sign Out</button> : ""}</div>
     </div>
   );
 };

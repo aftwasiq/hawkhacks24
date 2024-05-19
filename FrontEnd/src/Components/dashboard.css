@@ -255,19 +255,17 @@ h4 {
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 140px;
+    width: 35px;
     height: 55px;
     margin-bottom: 12.5px;
-    background-color: rgba(71, 71, 71, 0.21);
+    background-color: rgba(97, 93, 93, 0.1);
     border: none;
     position: relative;
     overflow: hidden;
     transition: background-color 0.5s;
     margin: 0 7px;
-    margin: -25px !important;
     font-size: 20px;
     font-weight: 200;
-    text-align: center;
 }
 
 .radio-button input:focus {
@@ -282,4 +280,21 @@ h4 {
 .logInOutBtn {
     width: 90%;
     height: 50px;
+}
+#dashboredComparePerDiv button:focus {
+    outline: none;
+    background-color: #b53737;
+}
+#dashboredComparePerDiv button:hover {
+    border: none;
+    background: #f55e5e;
+}
+#dashboredComparePerDiv button {
+    border: none;
+}
+#dashboredBet > button:nth-child(6) {
+    padding-right: 80px;
+}
+#dashboredBet > button:nth-child(5) {
+    padding-right: 80px;
 }

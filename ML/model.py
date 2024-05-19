@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Load the dataset
 data = pd.read_csv('dataset.csv')
@@ -70,8 +70,18 @@ def bet():
     goals_team1 = data['goals_team1']
     goals_team2 = data['goals_team2']
     account_id = data['accountId']
+    selected_team = data['selectedTeam']
+    bet_amount = data['betAmount']
+
     result = prediction(team1, team2, goals_team1, goals_team2)
-    return jsonify(result)
+    winner = team1 if result[team1] > result[team2] else team2
+
+    return jsonify({
+        "result": result,
+        "winner": winner,
+        "selectedTeam": selected_team,
+        "betAmount": bet_amount
+    })
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)

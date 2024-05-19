@@ -36,7 +36,10 @@ const Login = ({ data, setData }) => {
           walletUrl: nearConfig.walletUrl,
           helperUrl: nearConfig.helperUrl,
         });
-        const walletConnection = new WalletConnection(nearConnection, nearConfig.appKeyPrefix);
+        const walletConnection = new WalletConnection(
+          nearConnection,
+          nearConfig.appKeyPrefix,
+        );
         setWallet(walletConnection);
 
         if (walletConnection.isSignedIn()) {
@@ -69,16 +72,19 @@ const Login = ({ data, setData }) => {
   const signIn = () => {
     if (wallet) {
       console.log("Attempting to sign in with NEAR wallet");
-      wallet.requestSignIn({
-        contractId: "",
-        methodNames: [],
-        successUrl: `${window.location.origin}/dashboard`,
-        failureUrl: `${window.location.origin}/dashboard`,
-      }).then(() => {
-        console.log("Sign-in request successful");
-      }).catch((error) => {
-        console.error("Error during sign-in request:", error);
-      });
+      wallet
+        .requestSignIn({
+          contractId: "",
+          methodNames: [],
+          successUrl: `${window.location.origin}/dashboard`,
+          failureUrl: `${window.location.origin}/dashboard`,
+        })
+        .then(() => {
+          console.log("Sign-in request successful");
+        })
+        .catch((error) => {
+          console.error("Error during sign-in request:", error);
+        });
     } else {
       console.error("Wallet is not initialized");
     }
@@ -122,6 +128,9 @@ const Login = ({ data, setData }) => {
         </div>
         <button type="submit">Sign In</button>
         <button onClick={signIn}>Sign In with NEAR</button>
+        <div id="registerLink">
+          <a href="/register">Dont Have A Account ?</a>
+        </div>
       </form>
     </div>
   );

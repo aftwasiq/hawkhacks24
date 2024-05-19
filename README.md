@@ -19,7 +19,7 @@ Clone or download the repository. Install the required packages `npm install`. S
 - Navigate to /ML & `python model.py`
 - Since our website needs direct interaction with the **Near** Wallet, it needs to be deployed publicly. The solution to this is to port forward, in our case, using Ngrok: `ngrok http 5173` where port `5173` is Vite's default port.
 - Make a Near Wallet account
-- Sign up
-- Login & Enjoy!
+- Sign up 
+- Login & Enjoy! (Make sure to login with your NEAR wallet or connect it aftewards in order to bet)
 
 

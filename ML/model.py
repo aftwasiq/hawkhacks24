@@ -9,30 +9,38 @@ from sklearn.metrics import accuracy_score
 app = Flask(__name__)
 CORS(app)
 
-# dataset, includes game information from FIFA 2022, 2018, 2014, and 2010
+# Load the dataset
 data = pd.read_csv('dataset.csv')
 
-le = LabelEncoder()
-data['team1'] = le.fit_transform(data['team1'])
-data['team2'] = le.fit_transform(data['team2'])
-data['winner'] = le.fit_transform(data['winner'])
+# Encode categorical variables
+le_team1 = LabelEncoder()
+le_team2 = LabelEncoder()
+le_winner = LabelEncoder()
 
+data['team1'] = le_team1.fit_transform(data['team1'])
+data['team2'] = le_team2.fit_transform(data['team2'])
+data['winner'] = le_winner.fit_transform(data['winner'])
+
+# Split the data into features and target variable
 X = data[['team1', 'team2', '1goals', '2goals']]
 y = data['winner']
 
+# Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+# Train the model
 clf = RandomForestClassifier(n_estimators=100)
 clf.fit(X_train, y_train)
 
+# Make predictions and print accuracy
 y_pred = clf.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
 
-
 def prediction(team1, team2, goals_team1, goals_team2):
     initial_prob = 50
-
-    probabilities = clf.predict_proba([[team1, team2, goals_team1, goals_team2]])
+    team1_encoded = le_team1.transform([team1])[0]
+    team2_encoded = le_team2.transform([team2])[0]
+    probabilities = clf.predict_proba([[team1_encoded, team2_encoded, goals_team1, goals_team2]])
 
     prob_team1 = probabilities[0][1] * 100
     prob_team2 = probabilities[0][0] * 100
@@ -47,10 +55,23 @@ def prediction(team1, team2, goals_team1, goals_team2):
         adjustment = (prob_team1 - initial_prob) * 0.1
         new_prob_team1 = initial_prob + adjustment
         new_prob_team2 = 100 - new_prob_team1
-        
     else:
         adjustment = (prob_team2 - initial_prob) * 0.1
         new_prob_team2 = initial_prob + adjustment
         new_prob_team1 = 100 - new_prob_team2
 
-    return f"{team1}: {new_prob_team1:.2f}%", f"{team2}: {new_prob_team2:.2f}%"
+    return {team1: f"{new_prob_team1:.2f}%", team2: f"{new_prob_team2:.2f}%"}
+
+@app.route('/bet', methods=['POST'])
+def bet():
+    data = request.get_json()
+    team1 = data['team1']
+    team2 = data['team2']
+    goals_team1 = data['goals_team1']
+    goals_team2 = data['goals_team2']
+    account_id = data['accountId']
+    result = prediction(team1, team2, goals_team1, goals_team2)
+    return jsonify(result)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5001)

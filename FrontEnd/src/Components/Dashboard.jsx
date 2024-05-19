@@ -111,6 +111,8 @@ const Dashboard = ({ data }) => {
         </div>
         <div id="navbarUserIcon">
           <UserIcon />
+          
+          <button onClick={signOut}>Sign Out</button> 
         </div>
       </div>
       <div id="navbarUnderline"></div>
@@ -196,7 +198,7 @@ const Dashboard = ({ data }) => {
         </div>
       </div>
       <div>
-          <button onClick={signOut}>Sign Out</button>      
+               
       </div>
     </div>
   );

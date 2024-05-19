@@ -129,7 +129,7 @@ const Login = ({ data, setData }) => {
         <button type="submit">Sign In</button>
         <button onClick={signIn}>Sign In with NEAR</button>
         <div id="registerLink">
-          <a href="/register">Dont Have A Account ?</a>
+          <a href="/register">Dont Have An Account?</a>
         </div>
       </form>
     </div>

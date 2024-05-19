@@ -4,8 +4,9 @@ import "./dashboard.css";
 import { UserIcon, Logo } from "./svg";
 import * as nearAPI from "near-api-js";
 import axios from "axios";
+import { Buffer } from "buffer"; // Import Buffer
 
-const { connect, keyStores, WalletConnection } = nearAPI;
+const { connect, keyStores, WalletConnection, utils } = nearAPI;
 
 const nearConfig = {
   networkId: "testnet",
@@ -22,14 +23,15 @@ const Dashboard = ({ data }) => {
   const [customBet, setCustomBet] = useState(0);
   const [team1Goals, setTeam1Goals] = useState(0);
   const [team2Goals, setTeam2Goals] = useState(0);
-
-  console.log(customBet);
+  const [selectedTeam, setSelectedTeam] = useState("");
+  const [confirmationMessage, setConfirmationMessage] = useState("");
 
   const [wallet, setWallet] = useState(null);
   const [account, setAccount] = useState(null);
   const [betResult, setBetResult] = useState(null);
 
   useEffect(() => {
+    window.Buffer = Buffer; // Polyfill Buffer for browser
     const initNear = async () => {
       try {
         const myKeyStore = new keyStores.BrowserLocalStorageKeyStore();
@@ -62,11 +64,25 @@ const Dashboard = ({ data }) => {
     initNear();
   }, []);
 
-  
+  const signIn = () => {
+    if (wallet) {
+      wallet.requestSignIn({
+        contractId: "",
+        methodNames: [],
+        successUrl: `${window.location.origin}/dashboard`,
+        failureUrl: `${window.location.origin}/dashboard`,
+      }).then(() => {
+        console.log("Sign-in request successful");
+      }).catch((error) => {
+        console.error("Error during sign-in request:", error);
+      });
+    } else {
+      console.error("Wallet is not initialized");
+    }
+  };
 
   const signOut = () => {
     if (wallet) {
-      console.log("Attempting to sign out");
       wallet.signOut();
       setAccount(null);
       localStorage.removeItem("nearAccountId");
@@ -75,28 +91,54 @@ const Dashboard = ({ data }) => {
     }
   };
 
-  const handleBet = async () => {
-    if (!account) {
-      alert("Please sign in with your NEAR wallet to make a bet.");
-      return;
-    }
-
+  const fetchBetResults = async () => {
     try {
       const response = await axios.post("http://localhost:5001/bet", {
         team1: "ARGENTINA",
         team2: "SAUDI ARABIA",
         goals_team1: team1Goals,
         goals_team2: team2Goals,
-        accountId: account.accountId,
+        accountId: account ? account.accountId : "",
+        selectedTeam,
+        betAmount: customBet || selectedOption,
       });
       setBetResult(response.data);
     } catch (error) {
-      console.error("Error making bet:", error);
+      console.error("Error fetching bet results:", error);
+    }
+  };
+
+  const handlePay = async () => {
+    if (!account) {
+      alert("Please sign in with your NEAR wallet to make a bet.");
+      return;
+    }
+
+    if (!selectedTeam) {
+      alert("Please select a team to bet on.");
+      return;
+    }
+
+    try {
+      if (betResult && betResult.winner === selectedTeam) {
+        const transactionAmount = utils.format.parseNearAmount((customBet || selectedOption).toString());
+        await wallet.account().sendMoney(account.accountId, transactionAmount);
+        alert(`Congratulations! You won ${transactionAmount / 1e24} NEAR.`);
+      } else {
+        alert("Sorry, you lost the bet.");
+      }
+    } catch (error) {
+      console.error("Error making payment:", error);
     }
   };
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
+  };
+
+  const handleTeamSelection = (team) => {
+    setSelectedTeam(team);
+    setConfirmationMessage(`You have selected ${team}`);
   };
 
   return (
@@ -111,8 +153,6 @@ const Dashboard = ({ data }) => {
         </div>
         <div id="navbarUserIcon">
           <UserIcon />
-          
-          <button onClick={signOut}>Sign Out</button> 
         </div>
       </div>
       <div id="navbarUnderline"></div>
@@ -125,12 +165,12 @@ const Dashboard = ({ data }) => {
             </div>
             <div id="dashboredComparePerDiv">
               <div className="chanWinningTxt">
-                <h2>{betResult ? betResult["ARGENTINA"] : data.team1.chanceOfWinning}</h2>
+                <h2>{betResult ? betResult["result"]["ARGENTINA"] : data.team1.chanceOfWinning}</h2>
                 <h4>Chance Of Winning</h4>
               </div>
               <h3>VS</h3>
               <div className="chanWinningTxt">
-                <h2>{betResult ? betResult["SAUDI ARABIA"] : data.team2.chanceOfWinning}</h2>
+                <h2>{betResult ? betResult["result"]["SAUDI ARABIA"] : data.team2.chanceOfWinning}</h2>
                 <h4>Chance Of Winning</h4>
               </div>
             </div>
@@ -191,14 +231,26 @@ const Dashboard = ({ data }) => {
               <input type="number" placeholder="Goals by team 1" value={team1Goals} onChange={(e) => setTeam1Goals(parseInt(e.target.value))} />
               <input type="number" placeholder="Goals by team 2" value={team2Goals} onChange={(e) => setTeam2Goals(parseInt(e.target.value))} />
             </div>
-            <button className="radio-button" id="betBtn" onClick={handleBet}>
+            <div>
+              <button onClick={() => handleTeamSelection("ARGENTINA")}>Bet on Argentina</button>
+              <button onClick={() => handleTeamSelection("SAUDI ARABIA")}>Bet on Saudi Arabia</button>
+            </div>
+            {confirmationMessage && <p>{confirmationMessage}</p>}
+            <button className="radio-button" id="betBtn" onClick={fetchBetResults}>
               Bet
+            </button>
+            <button className="radio-button" id="payBtn" onClick={handlePay}>
+              Pay
             </button>
           </div>
         </div>
       </div>
       <div>
-               
+        {account ? (
+          <button onClick={signOut}>Sign Out</button>
+        ) : (
+          <button onClick={signIn}>Sign In with NEAR</button>
+        )}
       </div>
     </div>
   );

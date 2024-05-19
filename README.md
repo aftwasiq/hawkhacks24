@@ -12,6 +12,17 @@ PredicTurf is an innovative decentralized prediction market built on the NEAR bl
 
 `Seamless Frontend Integration`, The backend Flask application and our user-friendly JavaScript (React) frontend work together flawlessly. Users can easily place and follow their bets thanks to this integration, which guarantees real-time updates and seamless user experiences. 
 
+# Deploy Locally
+Clone or download the repository. Install the required packages `npm install`. Same goes for the Machine learning model in Python.
+- `npm run dev`
+- Navigate to /backend & `node server.js`
+- Navigate to /ML & `python model.py`
+- Since our website needs direct interaction with the **Near** Wallet, it needs to be deployed publicly. The solution to this is to port forward, in our case, using Ngrok: `ngrok http 5173` where port `5173` is Vite's default port.
+- Make a Near Wallet account
+- Sign up
+- Login & Enjoy!
+
+
 # Deployable Demo 
 
 coming soon

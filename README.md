@@ -2,7 +2,7 @@
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=0EF71F&random=false&width=435&lines=PredicTurf;Bets;Blockchain)](https://git.io/typing-svg)
 
-PredicTurf is an innovative decentralized prediction market built on the NEAR blockchain, leveraging machine learning (ML) to provide accurate forecasting and analytics. Our platform allows users to bet on the outcomes of various future events, including sports, elections, stocks, and more, creating a diverse and dynamic betting ecosystem. This project was created for the 2024 HawkHacks hackathon competition by Abdullah Wasiq, Nour El-Mohktari, Krish Nalam, and Sidak Singh. 
+PredicTurf is an innovative decentralized prediction market built on the NEAR blockchain, leveraging machine learning (ML) to provide accurate forecasting and analytics. Our platform allows users to bet on the outcomes of various future events, including sports, elections, stocks, and more, creating a diverse and dynamic betting ecosystem. This project was created for the 2024 HawkHacks hackathon competition by Abdullah Wasiq, Nour El Mohktari, Krish Nalam, and Sidak Singh. 
 
 # Key Features
 

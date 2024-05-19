@@ -134,7 +134,7 @@ const Dashboard = ({ data }) => {
         await wallet.account().sendMoney(account.accountId, transactionAmount);
         alert(`Congratulations! You won ${transactionAmount / 1e24} NEAR.`);
       } else {
-        alert("Sorry, you lost the bet.");
+        alert("Bet set.");
       }
     } catch (error) {
       console.error("Error making payment:", error);

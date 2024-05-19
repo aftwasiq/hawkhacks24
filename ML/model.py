@@ -9,10 +9,8 @@ from sklearn.metrics import accuracy_score
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Load the dataset
 data = pd.read_csv('dataset.csv')
 
-# Encode categorical variables
 le_team1 = LabelEncoder()
 le_team2 = LabelEncoder()
 le_winner = LabelEncoder()
@@ -21,18 +19,15 @@ data['team1'] = le_team1.fit_transform(data['team1'])
 data['team2'] = le_team2.fit_transform(data['team2'])
 data['winner'] = le_winner.fit_transform(data['winner'])
 
-# Split the data into features and target variable
 X = data[['team1', 'team2', '1goals', '2goals']]
 y = data['winner']
 
-# Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train the model
+# Training
 clf = RandomForestClassifier(n_estimators=100)
 clf.fit(X_train, y_train)
 
-# Make predictions and print accuracy
 y_pred = clf.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
 
